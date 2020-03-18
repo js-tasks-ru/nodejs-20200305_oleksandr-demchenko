@@ -12,7 +12,9 @@ class LineSplitStream extends stream.Transform {
     const data = this.linesBuffer + chunk.toString();
     const lines = data.split(os.EOL);
 
-    if (!data.endsWith(os.EOL)) {
+    if (data.endsWith(os.EOL)) {
+      this.linesBuffer = '';
+    } else {
       this.linesBuffer = lines.pop();
     }
 
